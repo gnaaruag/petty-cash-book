@@ -56,7 +56,7 @@ router.post('/create-head', (req,res) =>
 router.get('/analytics', async (req,res) => 
 {
     //return balance
-    const balance = await Meta.findOne({identity: 'test'});
+    const balance = await Meta.findOne({identity: 'test'}) || 0;
     const date = new Date();
     const dateStringToday = date.toLocaleDateString();
     
@@ -169,19 +169,19 @@ router.get('/analytics', async (req,res) =>
    
     
     const docy = {
-        openingBalDay: balance.balance + openingDay,
-        openingBalWeek: balance.balance + openingWeek,
-        openingBalMonth: balance.balance + openingMonth,
-        incomeThisMonth: monthIncome,
-        expenseThisMonth: monthExpense,
-        savingsThisMonth: monthIncome - monthExpense,
-        openingBalYear: balance.balance + openingYear,
-        balance: balance.balance,
-        trans_hist: last30Transactions,
-        dailySend: daily, 
-        weeklySend: weekArray,
-        monthlySend: monthArray,
-        yearlySend: yearArray,
+        openingBalDay: balance.balance + openingDay || 0,
+        openingBalWeek: balance.balance + openingWeek || 0,
+        openingBalMonth: balance.balance + openingMonth || 0,
+        incomeThisMonth: monthIncome || 0,
+        expenseThisMonth: monthExpense || 0,
+        savingsThisMonth: monthIncome - monthExpense || 0,
+        openingBalYear: balance.balance + openingYear || 0,
+        balance: balance.balance || 0,
+        trans_hist: last30Transactions || 0,
+        dailySend: daily || [], 
+        weeklySend: weekArray || [],
+        monthlySend: monthArray || [],
+        yearlySend: yearArray || [],
     }
     res.render('analytics', { docy });
 
